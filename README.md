@@ -1,2 +1,2 @@
-# MTG-Leauge
-App for LU/GH MtG Leauge
+# MTG-League
+App for LU/GH MtG League
