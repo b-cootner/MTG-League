@@ -41,7 +41,7 @@ class League: ModelObject {
         super.init()
     }
 
-    static let baseUrl =  "https://whispering-plateau-91662.herokuapp.com/api/leagues"
+    static let baseUrl =  "https://api.mtg-league.com/api/leagues"
 
     class func getLeagueInfo(forLeagueId league: Int, completion: @escaping (League?) -> Void) {
         guard let url = URL(string: String(format: "\(baseUrl)/%@", String(league))) else {

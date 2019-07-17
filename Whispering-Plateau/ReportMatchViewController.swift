@@ -53,8 +53,11 @@ class ReportMatchViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.barTintColor = Constants.backgroundColor
-
         numberOfGamesTextField.delegate = self
+
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+
 
         self.view.backgroundColor = Constants.backgroundColor
     }

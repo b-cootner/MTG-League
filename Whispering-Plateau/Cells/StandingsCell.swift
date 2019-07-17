@@ -20,6 +20,8 @@ class StandingsCell: UICollectionViewCell {
     @IBOutlet weak var week4RecordLabel: UILabel!
 
     func configureCell(_ standing: Standing) {
+        backgroundColor = UIColor(named: "darkModeColor")
+
         nameLabel.text = "\(standing.firstName) \(standing.lastName)"
         overallRecordLabel.text = standing.overallRecord
         cityNameLabel.text = standing.office

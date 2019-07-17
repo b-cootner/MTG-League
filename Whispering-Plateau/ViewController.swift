@@ -34,6 +34,10 @@ class ViewController: UIViewController {
 
         self.view.backgroundColor = Constants.backgroundColor
 
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+
+
         registerNibs()
 
         collectionView.delegate = self
@@ -44,10 +48,6 @@ class ViewController: UIViewController {
 
         collectionView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(getLeagueStandings), for: .valueChanged)
-
-        if UserDefaults.standard.value(forKey: "reportMatches") == nil {
-            UserDefaults.standard.setValue(true, forKey: "reportMatches")
-        }
 
         if UserDefaults.standard.value(forKey: "selectedLeagueId") == nil {
             League.getLeagues { (leagues) in

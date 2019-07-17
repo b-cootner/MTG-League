@@ -80,7 +80,7 @@ class User: ModelObject {
 
     // Request methods
 
-    static let baseUrl =  "https://whispering-plateau-91662.herokuapp.com/api/users"
+    static let baseUrl =  "https://api.mtg-league.com/api/users"
 
     class func getUsers(completion: @escaping ([User]) -> Void) {
         guard let url = URL(string: baseUrl) else {

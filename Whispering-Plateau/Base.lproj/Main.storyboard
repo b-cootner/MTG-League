@@ -58,7 +58,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winner " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YS5-uk-Hu6">
                                 <rect key="frame" x="94" y="56.999999999999993" width="659" height="21.666666666666664"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MVC-bb-Xr5">
@@ -69,7 +69,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loser" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1J-Lc-O4D">
                                 <rect key="frame" x="94" y="134.66666666666666" width="659" height="21.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="teK-cM-Q0Y">
@@ -99,7 +99,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of games" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWf-yx-D1R">
                                 <rect key="frame" x="94" y="213" width="658" height="21.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -375,20 +375,8 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fTb-qM-Si8">
                                                 <rect key="frame" x="71" y="175.66666666666666" width="220" height="80"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rJ-Bq-4sq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="80"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="M4w-bR-wZn"/>
-                                                            <constraint firstAttribute="width" constant="100" id="btM-5W-g3m"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
-                                                        <state key="normal" title="+"/>
-                                                        <connections>
-                                                            <action selector="player1LifePlusClicked:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="Vyz-4u-d0S"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VD2-iU-hTX">
-                                                        <rect key="frame" x="120" y="0.0" width="100" height="80"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="80"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="80" id="atP-PX-pnN"/>
                                                             <constraint firstAttribute="width" constant="100" id="gdW-fP-sFs"/>
@@ -397,6 +385,18 @@
                                                         <state key="normal" title="-"/>
                                                         <connections>
                                                             <action selector="player1LifeMinusClicked:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="rk6-Vz-Eaa"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rJ-Bq-4sq">
+                                                        <rect key="frame" x="120" y="0.0" width="100" height="80"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="M4w-bR-wZn"/>
+                                                            <constraint firstAttribute="width" constant="100" id="btM-5W-g3m"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                                        <state key="normal" title="+"/>
+                                                        <connections>
+                                                            <action selector="player1LifePlusClicked:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="Vyz-4u-d0S"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -440,20 +440,8 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-5W-H8B">
                                                 <rect key="frame" x="71" y="174.33333333333334" width="220" height="80"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-Pz-7UI">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="80"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="100" id="BmC-VI-9rl"/>
-                                                            <constraint firstAttribute="height" constant="80" id="zVP-yW-Hyd"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
-                                                        <state key="normal" title="+"/>
-                                                        <connections>
-                                                            <action selector="player2LifePlusClicked:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="DOy-hF-3MW"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0G-zi-VcV">
-                                                        <rect key="frame" x="120" y="0.0" width="100" height="80"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="80"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="0ch-4r-N0N"/>
                                                             <constraint firstAttribute="height" constant="80" id="Oxa-Dd-zX2"/>
@@ -462,6 +450,18 @@
                                                         <state key="normal" title="-"/>
                                                         <connections>
                                                             <action selector="player2LifeMinusClicked:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="21X-Ez-v4C"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-Pz-7UI">
+                                                        <rect key="frame" x="120" y="0.0" width="100" height="80"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="BmC-VI-9rl"/>
+                                                            <constraint firstAttribute="height" constant="80" id="zVP-yW-Hyd"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                                        <state key="normal" title="+"/>
+                                                        <connections>
+                                                            <action selector="player2LifePlusClicked:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="DOy-hF-3MW"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -513,16 +513,16 @@
                                     <constraint firstAttribute="height" constant="42" id="cmO-MW-XT0"/>
                                     <constraint firstAttribute="width" constant="42" id="dYJ-i9-TxE"/>
                                 </constraints>
-                                <state key="normal" image="dice.jpg"/>
+                                <state key="normal" image="dice.png"/>
                                 <connections>
                                     <action selector="didTapDice:" destination="9Ql-4G-aQp" eventType="touchUpInside" id="7Ps-fH-y3i"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rd9-Nc-RcK">
-                                <rect key="frame" x="385" y="220" width="42" height="42"/>
+                                <rect key="frame" x="387" y="222" width="38" height="38"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="Pgj-b0-XiO"/>
-                                    <constraint firstAttribute="width" constant="42" id="udo-fi-cPP"/>
+                                    <constraint firstAttribute="height" constant="38" id="Pgj-b0-XiO"/>
+                                    <constraint firstAttribute="width" constant="38" id="udo-fi-cPP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" image="reset.png"/>
@@ -544,7 +544,7 @@
                             <constraint firstItem="JHA-6f-Soc" firstAttribute="centerX" secondItem="1Ef-Vp-lLw" secondAttribute="centerX" id="JwP-eu-0YC"/>
                             <constraint firstItem="DSH-Hi-o9B" firstAttribute="bottom" secondItem="cp1-w9-eBN" secondAttribute="bottom" id="Kx1-Ce-mSQ"/>
                             <constraint firstItem="DSH-Hi-o9B" firstAttribute="bottom" secondItem="LjU-Ec-GZk" secondAttribute="bottom" constant="10" id="WxM-SI-F7N"/>
-                            <constraint firstItem="LjU-Ec-GZk" firstAttribute="top" secondItem="Rd9-Nc-RcK" secondAttribute="bottom" constant="8" id="ZJc-JW-7M8"/>
+                            <constraint firstItem="LjU-Ec-GZk" firstAttribute="top" secondItem="Rd9-Nc-RcK" secondAttribute="bottom" constant="10" id="ZJc-JW-7M8"/>
                             <constraint firstItem="DSH-Hi-o9B" firstAttribute="trailing" secondItem="bju-gv-N6U" secondAttribute="trailing" id="bqe-gW-YDV"/>
                             <constraint firstItem="Rd9-Nc-RcK" firstAttribute="centerX" secondItem="1Ef-Vp-lLw" secondAttribute="centerX" id="dFF-pJ-V9k"/>
                             <constraint firstItem="bju-gv-N6U" firstAttribute="leading" secondItem="DSH-Hi-o9B" secondAttribute="leading" id="dw1-kX-6hl"/>
@@ -649,7 +649,7 @@
         <image name="circle" catalog="system" width="64" height="62"/>
         <image name="circle.fill" catalog="system" width="64" height="62"/>
         <image name="circle.png" width="512" height="512"/>
-        <image name="dice.jpg" width="225" height="225"/>
+        <image name="dice.png" width="225" height="225"/>
         <image name="gamecontroller" catalog="system" width="64" height="40"/>
         <image name="gear" catalog="system" width="64" height="60"/>
         <image name="list.dash" catalog="system" width="64" height="44"/>

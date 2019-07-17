@@ -44,7 +44,7 @@ class MatchReport: ModelObject {
         return ["match_result" : dict]
     }
 
-    let baseUrl = "https://whispering-plateau-91662.herokuapp.com/api/match_results"
+    let baseUrl = "https://api.mtg-league.com/api/match_results"
 
     /*
 
@@ -70,6 +70,8 @@ class MatchReport: ModelObject {
             if let responseJSON = responseJSON as? [String: Any] {
                 print(responseJSON)
                 completion(true)
+            } else {
+                completion(false)
             }
         }
 

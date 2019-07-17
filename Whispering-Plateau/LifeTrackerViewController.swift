@@ -82,7 +82,7 @@ class LifeTrackerViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
 
         guard let recordMatch = UserDefaults.standard.value(forKey: "reportMatches") as? Bool, let leagueName = UserDefaults.standard.value(forKey:"selectedLeagueName") as? String else {
-            titleLabel.isHidden = true
+            titleLabel.text = "Error no leauge selected. Go to Settings!"
 
             return
         }
@@ -112,10 +112,10 @@ class LifeTrackerViewController: UIViewController {
         winnerOfGame2 = nil
         winnerOfGame3 = nil
 
-        player1WinIcon1.image = UIImage(named: "circle")
-        player1WinIcon2.image = UIImage(named: "circle")
-        player2WinIcon1.image = UIImage(named: "circle")
-        player2WinIcon2.image = UIImage(named: "circle")
+        player1WinIcon1.image = Constants.circleIcon
+        player1WinIcon2.image = Constants.circleIcon
+        player2WinIcon1.image = Constants.circleIcon
+        player2WinIcon2.image = Constants.circleIcon
 
         guard let selectedLeagueId = UserDefaults.standard.value(forKey: "selectedLeagueId") as? Int else {
             return
@@ -244,8 +244,8 @@ class LifeTrackerViewController: UIViewController {
         }
 
         for icon in iconsForPlayer {
-            if icon.image == UIImage(named: "circle") {
-                icon.image = UIImage(named: "circle.fill")
+            if icon.image == Constants.circleIcon {
+                icon.image = Constants.circleFilledIcon
                 return
             }
         }

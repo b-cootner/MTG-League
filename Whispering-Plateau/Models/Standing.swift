@@ -45,7 +45,7 @@ class Standing: ModelObject {
 
     // Request methods
 
-    static let baseUrl =  "https://whispering-plateau-91662.herokuapp.com/api/leagues/%@/standings"
+    static let baseUrl =  "https://api.mtg-league.com/api/leagues/%@/standings"
 
     class func getStandings(forLeague league: Int, completion: @escaping ([Standing]) -> Void) {
         guard let url = URL(string: String(format: baseUrl, String(league))) else {

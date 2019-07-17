@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5905DA2022DCE00000BC1003 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 5905DA1F22DCE00000BC1003 /* reset.png */; };
 		5905DA2422DCEFAA00BC1003 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 5905DA2222DCEFA900BC1003 /* circle.png */; };
 		5905DA2622DCF0C100BC1003 /* circle.fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 5905DA2522DCF0C100BC1003 /* circle.fill.png */; };
 		591907F322D8C5420099AD54 /* UIViewController+Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591907F222D8C5420099AD54 /* UIViewController+Overlay.swift */; };
-		594285D922DC3B0300C693B9 /* dice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 594285D822DC3B0300C693B9 /* dice.jpg */; };
+		59303D0622DFD8E000786D3E /* dice.png in Resources */ = {isa = PBXBuildFile; fileRef = 59303D0422DFD8DF00786D3E /* dice.png */; };
+		59303D0722DFD8E000786D3E /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 59303D0522DFD8E000786D3E /* reset.png */; };
 		594285DB22DCBC1E00C693B9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594285DA22DCBC1E00C693B9 /* SettingsViewController.swift */; };
 		594285DD22DCC73400C693B9 /* LeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594285DC22DCC73400C693B9 /* LeaguesViewController.swift */; };
 		5945ADB622D5256C00716919 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5945ADB522D5256C00716919 /* User.swift */; };
@@ -55,11 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5905DA1F22DCE00000BC1003 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		5905DA2222DCEFA900BC1003 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		5905DA2522DCF0C100BC1003 /* circle.fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.fill.png; sourceTree = "<group>"; };
 		591907F222D8C5420099AD54 /* UIViewController+Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Overlay.swift"; sourceTree = "<group>"; };
-		594285D822DC3B0300C693B9 /* dice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dice.jpg; sourceTree = "<group>"; };
+		59303D0422DFD8DF00786D3E /* dice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice.png; sourceTree = "<group>"; };
+		59303D0522DFD8E000786D3E /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		594285DA22DCBC1E00C693B9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		594285DC22DCC73400C693B9 /* LeaguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesViewController.swift; sourceTree = "<group>"; };
 		5945ADB522D5256C00716919 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -186,8 +186,8 @@
 				59F6D3AB22C6EF9C00EFC7A6 /* Assets.xcassets */,
 				5905DA2522DCF0C100BC1003 /* circle.fill.png */,
 				5905DA2222DCEFA900BC1003 /* circle.png */,
-				594285D822DC3B0300C693B9 /* dice.jpg */,
-				5905DA1F22DCE00000BC1003 /* reset.png */,
+				59303D0422DFD8DF00786D3E /* dice.png */,
+				59303D0522DFD8E000786D3E /* reset.png */,
 				59F6D3AD22C6EF9C00EFC7A6 /* LaunchScreen.storyboard */,
 				59F6D3B022C6EF9C00EFC7A6 /* Info.plist */,
 			);
@@ -316,14 +316,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5905DA2022DCE00000BC1003 /* reset.png in Resources */,
+				59303D0622DFD8E000786D3E /* dice.png in Resources */,
+				59303D0722DFD8E000786D3E /* reset.png in Resources */,
 				59F6D3AF22C6EF9C00EFC7A6 /* LaunchScreen.storyboard in Resources */,
 				59F6D3D322C6F3B400EFC7A6 /* StandingsCell.xib in Resources */,
 				5905DA2422DCEFAA00BC1003 /* circle.png in Resources */,
 				5905DA2622DCF0C100BC1003 /* circle.fill.png in Resources */,
 				59F6D3AC22C6EF9C00EFC7A6 /* Assets.xcassets in Resources */,
 				59F6D3AA22C6EF9B00EFC7A6 /* Main.storyboard in Resources */,
-				594285D922DC3B0300C693B9 /* dice.jpg in Resources */,
 				5945ADB922D5377D00716919 /* UserCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,7 +541,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XWKL9MBNTQ;
 				INFOPLIST_FILE = "Whispering-Plateau/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,9 +558,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 664AX44HR2;
+				DEVELOPMENT_TEAM = XWKL9MBNTQ;
 				INFOPLIST_FILE = "Whispering-Plateau/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
