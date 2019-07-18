@@ -19,10 +19,14 @@ class PlayersViewController: UIViewController {
     @IBOutlet weak var navigationTitle: UINavigationItem!
 
     var users: [User] = [User]()
+    var sortedUsers: [User] {
+        return users.sorted(by: { $0.firstName < $1.firstName })
+    }
 
     //Assigned via segue
     weak var delegate: PlayersViewControllerDelegate?
     var isSelectingWinner: Bool = false
+    var presentedFromLifeTracker: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,18 +60,18 @@ extension PlayersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
         
-        self.delegate?.didSelect(user: users[indexPath.item], isWinner: isSelectingWinner)
+        self.delegate?.didSelect(user: sortedUsers[indexPath.item], isWinner: isSelectingWinner)
     }
 }
 
 extension PlayersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        return sortedUsers.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCell", for: indexPath) as! UserCell
-        let user = users[indexPath.item]
+        let user = sortedUsers[indexPath.item]
         cell.nameLabel.text = user.name
         return cell
     }

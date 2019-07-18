@@ -76,6 +76,26 @@ class User: ModelObject {
         
         super.init()
     }
+
+    init(firstName: String, lastName: String) {
+        self.userId = Int(arc4random())
+        self.firstName = firstName
+        self.lastName = lastName
+
+        self.office = nil
+        self.email = nil
+        self.experienceLevel = nil
+        self.judgeTier = nil
+        self.slackUsername = nil
+        self.createdAt = nil
+        self.updatedAt = nil
+        self.dciNumber = nil
+        self.gamesPlayed = nil
+        self.rating = nil
+        self.pro = nil
+
+        super.init()
+    }
     
 
     // Request methods

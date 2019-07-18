@@ -27,14 +27,6 @@ class SettingsViewController: UITableViewController {
         if let selectedLeagueName = UserDefaults.standard.value(forKey: "selectedLeagueName") as? String {
             leagueLabel.text = selectedLeagueName
         }
-
-        if let reportMatches = UserDefaults.standard.value(forKey: "reportMatches") as? Bool {
-            if reportMatches {
-                reportMatchCell.accessoryType = .checkmark
-            } else {
-                reportMatchCell.accessoryType = .none
-            }
-        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,15 +48,6 @@ extension SettingsViewController {
         case 0:
             self.performSegue(withIdentifier: "goToLeagues", sender: self)
             break
-        case 1:
-            let reportMatches = UserDefaults.standard.value(forKey: "reportMatches") as! Bool
-            let newReportMatches = !reportMatches
-            UserDefaults.standard.setValue(newReportMatches, forKey: "reportMatches")
-            if newReportMatches {
-                reportMatchCell.accessoryType = .checkmark
-            } else {
-                reportMatchCell.accessoryType = .none
-            }
         default:
             break
         }

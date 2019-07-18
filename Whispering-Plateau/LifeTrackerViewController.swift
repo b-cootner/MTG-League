@@ -27,17 +27,26 @@ class LifeTrackerViewController: UIViewController {
     @IBOutlet weak var player2RandomNumberLabel: UILabel!
     @IBOutlet weak var randomNumberStackView: UIStackView!
     
+    @IBOutlet weak var matchResultsBlocker: UIView!
+    @IBOutlet weak var matchResultsTextView: UITextView!
+
+    var matchStartDate : Date?
+    var game2StartDate: Date?
+    var game3StartDate: Date?
+    let formatter = DateComponentsFormatter()
+
+
     var users = [User]()
 
     var player1: User? {
         didSet {
-            player1NameLabel.text = player1?.name
+            player1NameLabel.text = player1?.name ?? "Player 1"
         }
     }
 
     var player2: User? {
         didSet {
-            player2NameLabel.text = player2?.name
+            player2NameLabel.text = player2?.name ?? "Player 2"
         }
     }
 
@@ -73,6 +82,9 @@ class LifeTrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        formatter.unitsStyle = .full
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.maximumUnitCount = 2
         reset()
     }
 
@@ -80,29 +92,32 @@ class LifeTrackerViewController: UIViewController {
         super.viewWillAppear(animated)
 
         UIApplication.shared.isIdleTimerDisabled = true
+        navigationController?.setNavigationBarHidden(true, animated: animated)
 
-        guard let recordMatch = UserDefaults.standard.value(forKey: "reportMatches") as? Bool, let leagueName = UserDefaults.standard.value(forKey:"selectedLeagueName") as? String else {
+
+        guard let leagueName = UserDefaults.standard.value(forKey:"selectedLeagueName") as? String else {
             titleLabel.text = "Error no leauge selected. Go to Settings!"
 
             return
         }
 
-        if recordMatch {
-            titleLabel.isHidden = false
-            titleLabel.text = "\(leagueName) League Match"
-        } else {
-            titleLabel.isHidden = false
-            titleLabel.text = "Casual Match"
-        }
+
+        titleLabel.isHidden = false
+        titleLabel.text = "\(leagueName) League Match"
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
 
         UIApplication.shared.isIdleTimerDisabled = false
     }
 
     private func reset() {
+        matchResultsBlocker.isHidden = true
+        matchResultsTextView.isHidden = true
+        matchResultsTextView.text = "Match Results:"
+
         player1 = nil
         player2 = nil
         player1Life = 20
@@ -154,8 +169,8 @@ class LifeTrackerViewController: UIViewController {
         if numberOfDiceRolls == -15 {
             diceAnimationTimer?.invalidate()
             randomNumberStackView.isHidden = true
-            player1RandomNumberLabel.textColor = .black
-            player2RandomNumberLabel.textColor = .black
+            player1RandomNumberLabel.textColor = UIColor(named: "darkModeOppositeColor")
+            player2RandomNumberLabel.textColor = UIColor(named: "darkModeOppositeColor")
         } else if numberOfDiceRolls > 0{
             player1RandomNumberLabel.text = "\(Int.random(in: 1...20))"
             player2RandomNumberLabel.text = "\(Int.random(in: 1...20))"
@@ -181,6 +196,7 @@ class LifeTrackerViewController: UIViewController {
             playersVC.title = "⇨ Select Player 2:"
         }
 
+        playersVC.presentedFromLifeTracker = true
         playersVC.users = users
         playersVC.delegate = self
     }
@@ -214,9 +230,10 @@ class LifeTrackerViewController: UIViewController {
 
             if self.winnerOfGame1 == nil {
                 self.winnerOfGame1 = winner
+                self.game2StartDate = Date()
             } else if self.winnerOfGame2 == nil {
                 self.winnerOfGame2 = winner
-
+                self.game3StartDate = Date()
             } else if self.winnerOfGame3 == nil {
                 self.winnerOfGame3 = winner
                 self.updateIcon(forPlayer: winner)
@@ -226,6 +243,7 @@ class LifeTrackerViewController: UIViewController {
             }
 
             if self.winnerOfGame1 == self.winnerOfGame2 {
+                self.game3StartDate = nil
                 self.reportMatch(winner: winner, loser: loser, numberOfGames: 2)
             } else {
                 self.updateIcon(forPlayer: winner)
@@ -265,37 +283,77 @@ class LifeTrackerViewController: UIViewController {
         }
     }
 
+    @IBAction func didTapPlayer1Concede(_ sender: Any) {
+        player1Life = 0
+    }
+
+    @IBAction func didTapPlayer2Concede(_ sender: Any) {
+        player2Life = 0
+    }
+
+    var matchResultTimeBreakdown: String {
+        let matchFinishedDate = Date()
+
+        if let game3StartDate =  game3StartDate {
+            return """
+            Game 1 Length: \(formatter.string(from: matchStartDate ?? Date(), to: game2StartDate ?? Date()) ?? "")
+            Game 2 Length: \(formatter.string(from: game2StartDate ?? Date(), to: game3StartDate) ?? "")
+            Game 3 Length: \(formatter.string(from: game3StartDate, to: matchFinishedDate) ?? "")
+            Total Match Length: \(formatter.string(from: matchStartDate ?? Date(), to: matchFinishedDate) ?? "")
+            """
+        }
+        return """
+        Game 1 Length: \(formatter.string(from: matchStartDate ?? Date(), to: game2StartDate ?? Date()) ?? "")
+        Game 2 Length: \(formatter.string(from: game2StartDate ?? Date(), to: matchFinishedDate) ?? "")
+        Total Match Length: \(formatter.string(from: matchStartDate ?? Date(), to: matchFinishedDate) ?? "")
+        """
+    }
+
+
     func reportMatch(winner: User, loser: User, numberOfGames: Int) {
-        guard let recordMatch = UserDefaults.standard.value(forKey: "reportMatches") as? Bool, recordMatch == true else {
-            let alert = UIAlertController(title: "Match not reported!", message: "Go to Settings to have matches recorded", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-
-            self.reset()
-            return
-        }
-
-        guard let selectedLeagueId = UserDefaults.standard.value(forKey: "selectedLeagueId") as? Int else {
-            return
-        }
-
-        let matchReport = MatchReport(winner: winner,
-                                      loser: loser,
-                                      gameCount: numberOfGames,
-                                      leagugeId: selectedLeagueId)
-        matchReport.postMatchResult { (succes) in
-
-            if succes {
-                DispatchQueue.main.async { [weak self] in
-                    let alert = UIAlertController(title: "Match Reported!", message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self?.present(alert, animated: true, completion: nil)
-                    self?.reset()
-                }
-            } else {
-
+        matchResultsBlocker.isHidden = false
+        matchResultsTextView.isHidden = false
+        let alert = UIAlertController(title: "Match Over!", message: "Would you like to report this match?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+            guard let selectedLeagueId = UserDefaults.standard.value(forKey: "selectedLeagueId") as? Int else {
+                return
             }
-        }
+
+
+            let matchReport = MatchReport(winner: winner,
+                                          loser: loser,
+                                          gameCount: numberOfGames,
+                                          leagugeId: selectedLeagueId)
+            matchReport.postMatchResult { (succes) in
+                let successText = succes ? "✅ Match Reported Successfully" : "⚠️ Error: Match Not Reported! ⚠️"
+
+                DispatchQueue.main.async { [weak self] in
+                    self?.matchResultsTextView.text = """
+                    Match Results:
+
+                    Winner: \(winner.name)
+                    Loser: \(loser.name)
+                    Games Played: \(numberOfGames)
+                    \(self!.matchResultTimeBreakdown)
+                    \(successText)
+                    """
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (alert) in
+            DispatchQueue.main.async { [weak self] in
+                self?.matchResultsTextView.text = """
+                Match Results:
+                
+                Winner: \(winner.name)
+                Loser: \(loser.name)
+                Games Played: \(numberOfGames)
+                \(self!.matchResultTimeBreakdown)
+                🤝 Match Choosen Not To Be Reported
+                """
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -312,6 +370,10 @@ extension LifeTrackerViewController: PlayersViewControllerDelegate {
             if let player1 = player1, let player2 = player2 {
                 self.playerIcons =  [player1: [player1WinIcon1!, player1WinIcon2!],
                                      player2: [player2WinIcon1!, player2WinIcon2!]]
+
+                matchStartDate = Date()
+                game2StartDate = nil
+                game3StartDate = nil
             }
         }
     }
