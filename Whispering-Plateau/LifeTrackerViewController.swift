@@ -27,6 +27,7 @@ class LifeTrackerViewController: UIViewController {
     @IBOutlet weak var player2RandomNumberLabel: UILabel!
     @IBOutlet weak var randomNumberStackView: UIStackView!
     
+    @IBOutlet weak var bestOfToggle: UISegmentedControl!
     @IBOutlet weak var matchResultsBlocker: UIView!
     @IBOutlet weak var matchResultsTextView: UITextView!
 
@@ -85,7 +86,38 @@ class LifeTrackerViewController: UIViewController {
         formatter.unitsStyle = .full
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.maximumUnitCount = 2
-        reset()
+
+        player1 = nil
+        player2 = nil
+        player1Life = 20
+        player2Life = 20
+
+        winnerOfGame1 = nil
+        winnerOfGame2 = nil
+        winnerOfGame3 = nil
+
+        player1WinIcon1.image = Constants.circleIcon
+        player1WinIcon1.tag = 0
+        player1WinIcon2.image = Constants.circleIcon
+        player1WinIcon2.tag = 0
+        player2WinIcon1.image = Constants.circleIcon
+        player2WinIcon1.tag = 0
+        player2WinIcon2.image = Constants.circleIcon
+        player2WinIcon2.tag = 0
+
+        bestOfToggle.selectedSegmentIndex = 0
+        matchResultsBlocker.isHidden = false
+        matchResultsTextView.isHidden = false
+        matchResultsTextView.text = """
+        Welcome:
+
+        To start a match tap the 'Reset' button below.
+        You will be asked to select 2 players from the league.
+        Use the toggle to decide if the match is Sudden Death (BO1) or Best of 3 (BO3).
+        Once the match is over you will be asked if you'd like to report this match.
+
+        ~Good Luck~
+        """
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +128,7 @@ class LifeTrackerViewController: UIViewController {
 
 
         guard let leagueName = UserDefaults.standard.value(forKey:"selectedLeagueName") as? String else {
-            titleLabel.text = "Error no leauge selected. Go to Settings!"
+            titleLabel.text = "Error no league selected. Go to Settings!"
 
             return
         }
@@ -114,10 +146,6 @@ class LifeTrackerViewController: UIViewController {
     }
 
     private func reset() {
-        matchResultsBlocker.isHidden = true
-        matchResultsTextView.isHidden = true
-        matchResultsTextView.text = "Match Results:"
-
         player1 = nil
         player2 = nil
         player1Life = 20
@@ -128,18 +156,43 @@ class LifeTrackerViewController: UIViewController {
         winnerOfGame3 = nil
 
         player1WinIcon1.image = Constants.circleIcon
+        player1WinIcon1.tag = 0
         player1WinIcon2.image = Constants.circleIcon
+        player1WinIcon2.tag = 0
         player2WinIcon1.image = Constants.circleIcon
+        player2WinIcon1.tag = 0
         player2WinIcon2.image = Constants.circleIcon
+        player2WinIcon2.tag = 0
 
         guard let selectedLeagueId = UserDefaults.standard.value(forKey: "selectedLeagueId") as? Int else {
             return
         }
 
+        matchResultsBlocker.isHidden = true
+        matchResultsTextView.isHidden = true
+        matchResultsTextView.text = "Match Results:"
+
         League.getLeagueInfo(forLeagueId: selectedLeagueId) { (league) in
             self.users = league?.users ?? []
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "goToPlayers", sender: self)
+            }
+        }
+    }
+
+    @IBAction func bestOfChanged(_ sender: Any) {
+        if winnerOfGame1 != nil {
+            bestOfToggle.selectedSegmentIndex = 0
+            let alert = UIAlertController(title: "Match In Progress", message: "You can't change this setting while a match is in progress.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            if bestOfToggle.selectedSegmentIndex == 0 {
+                player1WinIcon2.isHidden = false
+                player2WinIcon2.isHidden = false
+            } else {
+                player1WinIcon2.isHidden = true
+                player2WinIcon2.isHidden = true
             }
         }
     }
@@ -228,6 +281,14 @@ class LifeTrackerViewController: UIViewController {
                 return
             }
 
+            if self.bestOfToggle.selectedSegmentIndex == 1 {
+                self.winnerOfGame1 = winner
+                self.reportMatch(winner: winner,
+                                 loser: loser,
+                                 numberOfGames: 1)
+                return
+            }
+
             if self.winnerOfGame1 == nil {
                 self.winnerOfGame1 = winner
                 self.game2StartDate = Date()
@@ -262,8 +323,9 @@ class LifeTrackerViewController: UIViewController {
         }
 
         for icon in iconsForPlayer {
-            if icon.image == Constants.circleIcon {
+            if icon.tag == 0 {
                 icon.image = Constants.circleFilledIcon
+                icon.tag = 1
                 return
             }
         }
@@ -301,7 +363,12 @@ class LifeTrackerViewController: UIViewController {
             Game 3 Length: \(formatter.string(from: game3StartDate, to: matchFinishedDate) ?? "")
             Total Match Length: \(formatter.string(from: matchStartDate ?? Date(), to: matchFinishedDate) ?? "")
             """
+        } else if game2StartDate == nil {
+            return """
+            Total Match Length: \(formatter.string(from: matchStartDate ?? Date(), to: matchFinishedDate) ?? "")
+            """
         }
+
         return """
         Game 1 Length: \(formatter.string(from: matchStartDate ?? Date(), to: game2StartDate ?? Date()) ?? "")
         Game 2 Length: \(formatter.string(from: game2StartDate ?? Date(), to: matchFinishedDate) ?? "")
